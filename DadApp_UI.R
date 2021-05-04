@@ -1,6 +1,5 @@
 library(shiny)
-library(shinythemes)
-library(protr)
+library(shinytheme)
 library(markdown)
 
 shinyUI(
