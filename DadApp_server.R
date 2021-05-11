@@ -1,4 +1,3 @@
-
 # Define server logic required to draw a histogram
 server <- function(input, output){
   
@@ -23,15 +22,15 @@ server <- function(input, output){
       #I.e. in some cases Marshall says the probability is (b). But here we're assuming b=c=.5 
       #So I just wrote the numeric equivalent instead. 
       
-      like[1,3]<-.5
-      like[2,3]<-.25
-      like[3,3]<-0
-      like[4,3]<-.5
-      like[5,3]<-.5
-      like[6,3]<-.5
-      like[7,3]<-0
-      like[8,3]<-.25
-      like[9,3]<-.5
+      like[1,3]<- 1*i4
+      like[2,3]<- 0.5*i4
+      like[3,3]<- 0*i4
+      like[4,3]<- 1*i4
+      like[5,3]<- 1*i4
+      like[6,3]<- 0*i4
+      like[7,3]<- 0*i4
+      like[8,3]<- 0.5*i4
+      like[9,3]<- 1*i4
       like
       
       #Now lets write a function that uses these probabilities to calculate a 
@@ -43,7 +42,7 @@ server <- function(input, output){
         kid<-kid[keep]
         #Right now we are leaving allele frequencies at .5, but this can be later modified along with the matrix above to be more flexible.
         if(is.na(af)){
-          af<-rep(.5,length=length(parent))}
+          af<-rep(i4,length=length(parent))}
         
         #Make an empty string for us
         dif<-rep(NA,length=length(parent))
@@ -91,7 +90,7 @@ server <- function(input, output){
       ############# 
       #Simulations of calling for paternity model
       #############
-      dads<-matrix(NA,nrow=10,ncol=100) #nrows represents the number of loci whereas 
+      dads<-matrix(NA,nrow=i3,ncol=i2) #nrows represents the number of loci whereas 
       #ncol represents the number of potential fathers
       
       for (d in 1:i2){ #iterates across the possible number of fathers
@@ -104,7 +103,8 @@ server <- function(input, output){
       
       for(k in 1:i3){   # Iterates across the no. of loci
         if(dads[k,true]==0){   
-          # if the dad is o then assign the offspring as either 0 or 1 with a probability of 0.5 coming from the allele frequency
+          # if the dad is o then assign the offspring as either 0 or 1 
+          # with a probability of 0.5 coming from the allele frequency
           kid[k]<-sample(c(0,1),size=1,prob=c(i4,(1-i4)))
         }
         if(dads[k,true]==1){
@@ -114,8 +114,8 @@ server <- function(input, output){
           kid[k]<-sample(c(1,2),size=1,prob=c(i4, (1-i4)))
         }
       }
-      lod<-rep(NA,10)# pro
-      for(s in 1:100){ #iterating across the possible fathers
+      lod<-rep(NA,10)# produces the lod scores
+      for(s in 1:i2){ #iterating across the possible fathers
         lod[s]<-p.like(dads[,s],kid)
       }
       # generate bins based on input$bins from ui.R
