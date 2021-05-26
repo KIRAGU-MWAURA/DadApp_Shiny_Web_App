@@ -7,50 +7,36 @@ ui <- fluidPage(
   # Application title
   titlePanel("DadApp: WebApp for Assigning Paternity "),
   
+  # Show a plot of the generated distribution
+  
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
       fileInput("fathers",
-                  "Choose Potential Father(s) Data file",
+                "Choose Potential Father(s) Data file",
                 accept = c(
                   "text/csv",
                   "text/comma-separated-values,text/plain",
-                  ".csv" ),
-      fileInput("offspring",
-                          "Choose Offspring Data file",
-                          accept = c(
-                            "text/csv",
-                            "text/comma-separated-values,text/plain",
-                            ".csv" ),
-      numericInput ("allele",
-                    "Allele Frequency",
-                    min =0.1,
-                    max = 1.0,
-                    value = 0.5)
-    ),
-   
-    # Show a plot of the generated distribution
-    mainPanel(
-      plotOutput("lodScoreplot")
-    )
+                  ".csv")
+      )),mainPanel =   mainPanel(
+        tableOutput("lodScoretable")
+      )
   )
-),
+)
 
 
 # Define server logic required to draw a histogram
 server <- function(input, output){
   
-  output$lodScoreplot <- renderPlot({
-    i4<-input$allele
+  output$lodScoretable <- renderTable({
+    
     inFile1<-input$fathers
-    inFIle2<-input$offspring
+    
     
     if (is.null(inFile1))
       return(NULL)
     
-    if (is.null(inFile2))
-      return(NULL)
     
     for(i in 1:1){
       
@@ -68,15 +54,15 @@ server <- function(input, output){
       #I.e. in some cases Marshall says the probability is (b). But here we're assuming b=c=.5 
       #So I just wrote the numeric equivalent instead. 
       
-      like[1,3]<- 1*i4
-      like[2,3]<- 0.5*i4
-      like[3,3]<- 0*i4
-      like[4,3]<- 1*i4
-      like[5,3]<- 1*i4
-      like[6,3]<- 0*i4
-      like[7,3]<- 0*i4
-      like[8,3]<- 0.5*i4
-      like[9,3]<- 1*i4
+      like[1,3]<- 1*0.5
+      like[2,3]<- 0.5*0.5
+      like[3,3]<- 0*0.5
+      like[4,3]<- 1*0.5
+      like[5,3]<- 1*0.5
+      like[6,3]<- 0*0.5
+      like[7,3]<- 0*0.5
+      like[8,3]<- 0.5*0.5
+      like[9,3]<- 1*0.5
       like
       
       #Now lets write a function that uses these probabilities to calculate a 
@@ -131,34 +117,31 @@ server <- function(input, output){
         lod<-log(l1/l2)
         return(lod)
       }
-        
-        dads [,1]<- c(inFile1) #nrows represents the number of loci whereas ncol represents the number of potential fathers
-        
-        kid [,1]<- c(inFile2)# offsprings genotype matrix
-        
-        for(k in 1:10){   # Iterates across the no. of loci
-          if(dads[k,true]==0){   # if the dad is o then assign the offspring as either 0 or 1 with a probability of 0.5 coming from the allele frequency
-            kid[k]<-sample(c(0,1),size=1,prob=c(.5,.5))
-          }
-          if(dads[k,true]==1){
-            kid[k]<-sample(c(0,1,2),size=1,prob = c(.25,.5,.25))
-          }
-          if(dads[k,true]==2){
-            kid[k]<-sample(c(1,2),size=1,prob=c(.5,.5))
-          }
+      
+      dads [,1]<- c(inFile1) #nrows represents the number of loci whereas ncol represents the number of potential fathers
+      
+      kid [,1]<- c(0,0,0,1,1,1,2,2,2)# offsprings genotype matrix
+      
+      for(k in 1:9){   # Iterates across the no. of loci
+        if(dads[k,true]==0){   # if the dad is o then assign the offspring as either 0 or 1 with a probability of 0.5 coming from the allele frequency
+          kid[k]<-sample(c(0,1),size=1,prob=c(.5,.5))
         }
-        
-        lod<-rep(NA,100)# pro
-        for(s in 1:100){ #iterating across the possible fathers
-          lod[s]<-p.like(dads[,s],kid)
+        if(dads[k,true]==1){
+          kid[k]<-sample(c(0,1,2),size=1,prob = c(.25,.5,.25))
+        }
+        if(dads[k,true]==2){
+          kid[k]<-sample(c(1,2),size=1,prob=c(.5,.5))
+        }
       }
-      # generate bins based on input$bins from ui.R
-      # draw the histogram with the specified number of bins
-      hist(lod, col = 'steelblue3', border = 'grey30', 
-           main = "Histrogram of LOD Scores", xlab = "LOD SCORES", ylab = "FREQUENCY")
-    
-  }
-})
+      
+      lod<-rep(NA,1)# pro
+      for(s in 1:1){ #iterating across the possible fathers
+        lod[s]<-p.like(dads[,s],kid)
+      }
+      
+      lod
+    }
+  })
 } 
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui, server)
