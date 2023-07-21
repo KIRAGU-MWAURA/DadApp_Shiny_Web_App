@@ -16,7 +16,7 @@ runGitHub("DadApp_Shiny_Web_App", "KIRAGU-MWAURA", launch.browser = TRUE)
 ```
 ### Dashboard of DadApp Shiny Web
 
-![User interface](https://github.com/KIRAGU-MWAURA/DadApp_Shiny_Web_App/assets/44839744/75facc10-3e43-414b-b13f-714336d38041)
+![User interface](https://github.com/KIRAGU-MWAURA/DadApp_Shiny_Web_App/assets/44839744/528c602b-9a27-4ed5-be28-56644b018f6a)
 
 ### Characteristics of Datasets to be uploaded in DadApp
 1. Dataset should have 0,1,2 as their genotyped loci with 0 representing homozygous reference, 1 heterozygous and 2 homozygous alternate
