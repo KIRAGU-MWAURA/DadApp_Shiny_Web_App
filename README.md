@@ -32,7 +32,7 @@ runGitHub("DadApp_Shiny_Web_App", "KIRAGU-MWAURA", launch.browser = TRUE)
 - For fathers' dataset, it can have as many rows as per the number of putative fathers present in a population
 
 ### Workflow of DadApp Shiny Web App.
-![Workflow DadApp](https://github.com/KIRAGU-MWAURA/DadApp_Shiny_Web_App/assets/44839744/f0f91d93-c1aa-44b1-b228-f7a94d2c1194)
+![Workflow DadApp](https://github.com/KIRAGU-MWAURA/DadApp_Shiny_Web_App/assets/44839744/52f15c8c-92f3-4b29-937d-cc494ba535ca)
 
 ### Results Interpretation
 There are four result output in every run namely: LOD Table, Histogram plot, Detailed Table and Detailed Chart.
