@@ -54,4 +54,8 @@ Prof. Jenny Tung affliated with Max Planck Institute of Evolunationary Anthropol
 
 Dr. Jordan Anderson affliated with Oregon University, Duke University
 
+### Reference
+Mwaura, D.K., Anderson, J.A., Kiboi, D.M., Akinyi, M.Y. and Tung, J. (2025), Enhancing Student Comprehension of Paternity Assignment in Molecular Primatology: A Pilot Study Using a Shiny Web Application in Kenya. American Journal of Primatology, 87: e70024. https://doi.org/10.1002/ajp.70024
+Mwaura, D. K., Tung, J., & Anderson, J. (2023). DadApp. A Shiny Web Server for calculating parentage likelihood from genotype data (Version 1). Zenodo. https://doi.org/10.5281/zenodo.8171383
+
 
